@@ -20,7 +20,7 @@ class Layanan extends Model
         Layanan::create($request->all());
             $request->validate([
             'nama_layanan' => 'required|string|max:255',
-            'harga' => 'required|string',
+            'harga' => 'required|numeric',
         ]);
 
         Layanan::create($request->only(['nama_layanan', 'harga']));
