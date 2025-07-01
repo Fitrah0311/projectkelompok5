@@ -12,22 +12,20 @@ class ReservasiController extends Controller
         return view('reservasi.index', compact('data));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('reservasi.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
-    }
-
+        $request->validate([
+            $table->foreignId('pelanggan_id')->constrained()->onDelete('cascade');
+            $table->foreignId('layanan_id')->constrained()->onDelete('cascade');
+            $table->date('tanggal');
+            $table->time('jam');
+            $table->enum('status', ['pending', 'selesai', 'batal'])->default('pending');
+        });
     /**
      * Display the specified resource.
      */
