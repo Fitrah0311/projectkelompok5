@@ -3,9 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
 class Layanan extends Model
 {
+    protected $fillable = ['nama_layanan', 'harga'];
+
 
     public function up()
     {
@@ -15,6 +16,14 @@ class Layanan extends Model
             $table->decimal('harga', 10, 2);
             $table->timestamps();
         });
+
+        Layanan::create($request->all());
+            $request->validate([
+            'nama_layanan' => 'required|string|max:255',
+            'harga' => 'required|string',
+        ]);
+
+        Layanan::create($request->only(['nama_layanan', 'harga']));
     }
 
 }
