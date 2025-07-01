@@ -1,17 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Reservasi;
 use Illuminate\Http\Request;
 
 class ReservasiController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $data = Reservasi::all();
+        return view('reservasi.index', compact('data));
     }
 
     /**
@@ -19,7 +17,7 @@ class ReservasiController extends Controller
      */
     public function create()
     {
-        //
+        return view('reservasi.create');
     }
 
     /**
