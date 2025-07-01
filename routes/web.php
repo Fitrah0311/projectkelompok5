@@ -9,6 +9,8 @@ use App\Http\Controllers\HomeController;
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/', [PelangganController::class, 'index']);
 Route::get('/', [LayananController::class, 'index']);
+Route::get('/', [ReservasiController::class, 'index']);
 
 Route::resource('pelanggan', PelangganController::class);
 Route::resource('layanan', LayananController::class);
+Route::resource('reservasi', LayananController::class);
