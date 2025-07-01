@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Reservasi extends Model
 {
+    protected $fillable = ['tanggal','jam','status']
 
     public function up()
     {
@@ -18,6 +19,15 @@ class Reservasi extends Model
             $table->enum('status', ['pending', 'selesai', 'batal'])->default('pending');
             $table->timestamps();
         });
+
+        Reservasi::create($request->all());
+            $reguest->validate([
+            'tanggal'=>
+            'Jam' =>
+            'status' =>
+        ]);
+
+        Reservasi::create($reguest->only(['tanggal','jam',status']));
     }
 
 }
