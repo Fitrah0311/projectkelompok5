@@ -26,7 +26,6 @@ class Reservasi extends Model
             $table->enum('status', ['pending', 'selesai', 'batal'])->default('pending');
             $table->timestamps();
         });
-        Reservasi::create($reguest->only(['tanggal','jam',status']));
     }
 
 }
