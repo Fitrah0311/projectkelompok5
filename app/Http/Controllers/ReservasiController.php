@@ -1,6 +1,5 @@
-<?php
-
 namespace App\Http\Controllers;
+
 use App\Models\Reservasi;
 use Illuminate\Http\Request;
 
@@ -9,7 +8,7 @@ class ReservasiController extends Controller
     public function index()
     {
         $data = Reservasi::all();
-        return view('reservasi.index', compact('data));
+        return view('reservasi.index', compact('data'));
     }
 
     public function create()
@@ -20,41 +19,31 @@ class ReservasiController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            $table->foreignId('pelanggan_id')->constrained()->onDelete('cascade');
-            $table->foreignId('layanan_id')->constrained()->onDelete('cascade');
-            $table->date('tanggal');
-            $table->time('jam');
-            $table->enum('status', ['pending', 'selesai', 'batal'])->default('pending');
-        });
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+            'nama_pelanggan' => 'required',
+            'layanan' => 'required',
+            'tanggal' => 'required|date',
+        ]);
+
+        Reservasi::create($request->all());
+        return redirect()->route('reservasi.index')->with('success', 'Reservasi berhasil ditambahkan!');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $reservasi = Reservasi::findOrFail($id);
+        return view('reservasi.edit', compact('reservasi'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $reservasi = Reservasi::findOrFail($id);
+        $reservasi->update($request->all());
+        return redirect()->route('reservasi.index')->with('success', 'Reservasi berhasil diperbarui!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        Reservasi::findOrFail($id)->delete();
+        return redirect()->route('reservasi.index')->with('success', 'Reservasi berhasil dihapus!');
     }
 }
