@@ -16,15 +16,17 @@
                 <th>Nama Pelanggan</th>
                 <th>Layanan</th>
                 <th>Tanggal</th>
+                <th>Jam</th>
                 <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($data as $r)
                 <tr>
-                    <td>{{ $r->nama_pelanggan }}</td>
-                    <td>{{ $r->layanan }}</td>
+                    <td>{{ $r->pelanggan->nama ?? '-' }}</td>
+                    <td>{{ $r->layanan->nama_layanan ?? '-' }}</td>
                     <td>{{ $r->tanggal }}</td>
+                    <td>{{ $r->jam }}</td>
                     <td>
                         <a href="{{ route('reservasi.edit', $r->id) }}" class="btn btn-sm btn-warning">Edit</a>
                         <form action="{{ route('reservasi.destroy', $r->id) }}" method="POST" style="display:inline-block;">
