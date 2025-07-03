@@ -3,23 +3,41 @@
 @section('title', 'Tambah Reservasi')
 
 @section('content')
-    <h2>Tambah Reservasi</h2>
+<div class="container">
+    <h2 class="mb-4">Tambah Reservasi</h2>
 
     <form action="{{ route('reservasi.store') }}" method="POST">
         @csrf
+
         <div class="mb-3">
-            <label>Nama Pelanggan</label>
-            <input type="text" name="nama_pelanggan" class="form-control" required>
+            <label for="pelanggan_id" class="form-label">Pelanggan</label>
+            <select name="pelanggan_id" class="form-select" required>
+                @foreach ($pelanggans as $pelanggan)
+                    <option value="{{ $pelanggan->id }}">{{ $pelanggan->nama }}</option>
+                @endforeach
+            </select>
         </div>
+
         <div class="mb-3">
-            <label>Layanan</label>
-            <input type="text" name="layanan" class="form-control" required>
+            <label for="layanan_id" class="form-label">Layanan</label>
+            <select name="layanan_id" class="form-select" required>
+                @foreach ($layanans as $layanan)
+                    <option value="{{ $layanan->id }}">{{ $layanan->nama_layanan }}</option>
+                @endforeach
+            </select>
         </div>
+
         <div class="mb-3">
-            <label>Tanggal</label>
+            <label for="tanggal" class="form-label">Tanggal</label>
             <input type="date" name="tanggal" class="form-control" required>
         </div>
-        <button class="btn btn-success">Simpan</button>
-        <a href="{{ route('reservasi.index') }}" class="btn btn-secondary">Kembali</a>
+
+        <div class="mb-3">
+            <label for="jam" class="form-label">Jam</label>
+            <input type="time" name="jam" class="form-control" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Simpan</button>
     </form>
+</div>
 @endsection
