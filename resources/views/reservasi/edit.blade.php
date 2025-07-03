@@ -19,6 +19,10 @@
             <label>Tanggal</label>
             <input type="date" name="tanggal" class="form-control" value="{{ $reservasi->tanggal }}" required>
         </div>
+        <div class="mb-3">
+            <label>Jam</label>
+            <input type="time" name="jam" class="form-control" value="{{ $reservasi->jam }}" required>
+        </div>
         <button class="btn btn-primary">Update</button>
         <a href="{{ route('reservasi.index') }}" class="btn btn-secondary">Kembali</a>
     </form>
