@@ -2,63 +2,63 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Reservasi;
+use App\Models\Pelanggan;
+use App\Models\Layanan;
+
 use Illuminate\Http\Request;
 
 class ReservasiController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $data = Reservasi::with(['pelanggan', 'layanan'])->get();
+        return view('reservasi.index', compact('data'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
-        //
+    $pelanggans = Pelanggan::all();
+    $layanans = Layanan::all();
+
+    return view('reservasi.create', compact('pelanggans', 'layanans'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'pelanggan_id' => 'required|exists:pelanggans,id',
+            'layanan_id' => 'required|exists:layanans,id',
+            'tanggal' => 'required|date',
+            'jam' => 'required',
+        ]);
+
+        Reservasi::create($validated);
+        return redirect()->route('reservasi.index')->with('success', 'Reservasi berhasil ditambahkan!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+
+    public function edit($id)
     {
-        //
+        $reservasi = Reservasi::findOrFail($id);
+        $pelanggans = Pelanggan::all();
+        $layanans = Layanan::all();
+        return view('reservasi.edit', compact('reservasi', 'pelanggans', 'layanans'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+
+    public function update(Request $request, $id)
     {
-        //
+        $reservasi = Reservasi::findOrFail($id);
+        $reservasi->update($request->all());
+        return redirect()->route('reservasi.index')->with('success', 'Reservasi berhasil diperbarui!');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        Reservasi::findOrFail($id)->delete();
+        return redirect()->route('reservasi.index')->with('success', 'Reservasi berhasil dihapus!');
     }
 }

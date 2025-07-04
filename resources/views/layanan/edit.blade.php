@@ -1,20 +1,21 @@
 @extends('layouts.app')
 
-@section('content')
-<div class="container">
-    <h1>Edit Layanan</h1>
+@section('title', 'Edit Layanan')
 
-    <form action="{{ route('layanan.update', $data->id) }}" method="POST">
+@section('content')
+    <h2>Edit Layanan</h2>
+
+    <form action="{{ route('layanan.update', $layanan->id) }}" method="POST">
         @csrf @method('PUT')
         <div class="mb-3">
             <label>Nama Layanan</label>
-            <input type="text" name="nama_layanan" class="form-control" value="{{ $data->nama_layanan }}">
+            <input type="text" name="nama_layanan" class="form-control" value="{{ $layanan->nama_layanan }}" required>
         </div>
         <div class="mb-3">
             <label>Harga</label>
-            <input type="number" name="harga" class="form-control" value="{{ $data->harga }}">
+            <input type="number" name="harga" class="form-control" value="{{ $layanan->harga }}" required>
         </div>
         <button class="btn btn-primary">Update</button>
+        <a href="{{ route('layanan.index') }}" class="btn btn-secondary">Kembali</a>
     </form>
-</div>
 @endsection

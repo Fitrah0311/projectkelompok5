@@ -6,20 +6,19 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('reservasis', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('pelanggan_id')->constrained()->onDelete('cascade');
+            $table->foreignId('layanan_id')->constrained()->onDelete('cascade');
+            $table->date('tanggal');
+            $table->time('jam');
+            $table->enum('status', ['pending', 'selesai', 'batal'])->default('pending');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('reservasis');

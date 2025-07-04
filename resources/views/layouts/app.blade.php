@@ -18,30 +18,50 @@
         .nav-link i {
             margin-right: 6px;
         }
+        .btn-light {
+            border-radius: 20px;
+        }
+        .btn-warning {
+            border-radius: 20px;
+        }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg shadow">
-        <div class="container">
-            <a class="navbar-brand" href="/">🦄 YAMAHAL 🤖</a>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/pelanggan">👤 Pelanggan</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/layanan">🛠️ Layanan</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/reservasi">📅 Reservasi</a>
-                    </li>
-                </ul>
+
+    <nav class="navbar navbar-expand-lg" style="background-color: #f33687;">
+        <div class="container d-flex align-items-center justify-content-between">
+
+            {{-- Kiri: Logo + Profil --}}
+            <div class="d-flex align-items-center gap-2">
+                <a class="navbar-brand text-white fw-bold" href="#">🦄 YAMAHAL</a>
+
+                @auth
+                    <div class="d-flex align-items-center bg-white rounded-pill px-3 py-1">
+                        <span class="me-2">👤 {{ Auth::user()->name }}</span>
+                        <img src="https://via.placeholder.com/32" alt="avatar" class="rounded-circle" width="32" height="32">
+                    </div>
+                @endauth
+            </div>
+
+            {{-- Kanan: Menu Navigasi --}}
+            <div class="d-flex gap-2">
+                <a href="{{ route('pelanggan.index') }}" class="btn btn-light">👥 Pelanggan</a>
+                <a href="{{ route('layanan.index') }}" class="btn btn-light">🛠️ Layanan</a>
+                <a href="{{ route('reservasi.index') }}" class="btn btn-light">📅 Reservasi</a>
+                
+                @auth
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button class="btn btn-warning">Logout</button>
+                    </form>
+                @endauth
             </div>
         </div>
     </nav>
 
-    <main class="container mt-5">
+    <div class="container mt-5">
         @yield('content')
-    </main>
+    </div>
+
 </body>
 </html>

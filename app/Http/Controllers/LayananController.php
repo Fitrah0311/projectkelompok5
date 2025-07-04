@@ -32,22 +32,23 @@ class LayananController extends Controller
 
     public function edit($id)
     {
-        $data = Layanan::findOrFail($id);
-        return view('layanan.edit', compact('data'));
+        $layanan = Layanan::findOrFail($id);
+        return view('layanan.edit', compact('layanan'));
     }
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'nama_layanan' => 'required',
+        $validated = $request->validate([
+            'nama_layanan' => 'required|string|max:255',
             'harga' => 'required|numeric',
         ]);
 
-        $data = Layanan::findOrFail($id);
-        $data->update($request->all());
+        $layanan = Layanan::findOrFail($id);
+        $layanan->update($validated);
 
-        return redirect('/layanan')->with('success', 'Data layanan berhasil diupdate!');
+        return redirect()->route('layanan.index')->with('success', 'Layanan berhasil diperbarui!');
     }
+
 
     public function destroy($id)
     {
