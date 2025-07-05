@@ -15,7 +15,7 @@ return new class extends Migration
             $table->foreignld('layanan_id')->constrained()->onDelete('cascade');
             $table->date('tanggal');
             $table->time('jam');
-            $table->enum('status', ['pending', 'selesai', 'ignore'])->default('pending');
+            $table->enum('status', ['pending', 'selesai', 'batal'])->default('pending');
             $table->timestamps();
         });
     }
