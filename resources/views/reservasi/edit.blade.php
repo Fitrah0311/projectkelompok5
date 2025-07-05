@@ -6,7 +6,6 @@
     <h2>Edit Reservasi</h2>
 
     <form action="{{ route('reservasi.update', $reservasi->id) }}" method="POST">
-    <for action="{{ route('reservasi.store') }}" method="POST">
         @csrf @method('PUT')
         <div class="mb-3">
             <label>Nama Pelanggan</label>

@@ -2,23 +2,19 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
-class AppServiceProvider extends ServiceProvider
+class RouteServiceProvider extends ServiceProvider
 {
     /**
-     * Register any application services.
+     * Jalur ke mana pengguna diarahkan setelah login.
      */
-    public function register(): void
-    {
-        //
-    }
+    public const HOME = '/pelanggan';
 
-    /**
-     * Bootstrap any application services.
-     */
     public function boot(): void
     {
-        //
+        parent::boot();
     }
 }
+

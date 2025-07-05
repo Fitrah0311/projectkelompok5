@@ -1,3 +1,7 @@
+@extends('layouts.app')
+
+@section('title', 'Beranda')
+
 @section('content')
 <style>
     .hero {
@@ -32,6 +36,6 @@
 <div class="hero">
     <h1>Selamat Datang di YAMAHAL 🤖</h1>
     <p>Aplikasi reservasi servis bengkel motor dan kendaraan kesayanganmu!</p>
-    <a href="/pelanggan" class="btn btn-light btn-lg btn-start">Mulai Sekarang 🚀</a>
+    <a href="{{ route('pelanggan.index') }}" class="btn btn-light btn-lg btn-start">Mulai Sekarang 🚀</a>
 </div>
 @endsection
