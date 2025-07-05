@@ -19,6 +19,14 @@ class Layanan extends Model
             $table->decimal('harga', 10, 2);
             $table->timestamps();
         });
+
+        Layanan::create($request->all());
+            $request->validate([
+            'nama_layanan' => 'required|string|max:255',
+            'harga' => 'required|numeric',
+        ]);
+
+        Layanan::create($request->only(['nama_layanan', 'harga']));
     }
 
 }

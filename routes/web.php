@@ -33,3 +33,8 @@ Route::middleware('auth')->group(function () {
 
 
 
+Route::get('/', [HomeController::class, 'index']);
+
+Route::resource('reservasi', ReservasiController::class);
+Route::resource('pelanggan', PelangganController::class);
+Route::resource('layanan', LayananController::class);
