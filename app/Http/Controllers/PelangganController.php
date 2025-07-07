@@ -9,8 +9,8 @@ class PelangganController extends Controller
 {
     public function index()
     {
-        $data = Pelanggan::all();
-        return view('pelanggan.index', compact('data'));
+        $pelanggans = Pelanggan::all();
+        return view('pelanggan.index', compact('pelanggans'));
     }
 
     public function create()
@@ -20,40 +20,40 @@ class PelangganController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'nama' => 'required',
-            'no_hp' => 'required',
-            'plat_nomor' => 'required',
+        $validated = $request->validate([
+            'nama' => 'required|string|max:255',
+            'no_hp' => 'required|string',
+            'plat_nomor' => 'required|string',
         ]);
 
-        Pelanggan::create($request->all());
+        Pelanggan::create($validated);
 
-        return redirect('/pelanggan')->with('success', 'Data berhasil ditambahkan!');
+        return redirect()->route('pelanggan.index')->with('success', 'Pelanggan berhasil ditambahkan!');
     }
 
     public function edit($id)
     {
-        $data = Pelanggan::findOrFail($id);
-        return view('pelanggan.edit', compact('data'));
+        $pelanggan = Pelanggan::findOrFail($id);
+        return view('pelanggan.edit', compact('pelanggan'));
     }
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'nama' => 'required',
-            'no_hp' => 'required',
-            'plat_nomor' => 'required',
+        $validated = $request->validate([
+            'nama' => 'required|string|max:255',
+            'no_hp' => 'required|string',
+            'plat_nomor' => 'required|string',
         ]);
 
-        $data = Pelanggan::findOrFail($id);
-        $data->update($request->all());
+        $pelanggan = Pelanggan::findOrFail($id);
+        $pelanggan->update($validated);
 
-        return redirect('/pelanggan')->with('success', 'Data berhasil diupdate!');
+        return redirect()->route('pelanggan.index')->with('success', 'Pelanggan berhasil diperbarui!');
     }
 
     public function destroy($id)
     {
         Pelanggan::findOrFail($id)->delete();
-        return redirect('/pelanggan')->with('success', 'Data berhasil dihapus!');
+        return redirect()->route('pelanggan.index')->with('success', 'Pelanggan berhasil dihapus!');
     }
 }
